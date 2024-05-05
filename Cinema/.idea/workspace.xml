@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6ae79a24-e72d-46d4-95b9-4b4d6f248083" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/out/production/Cinema/br/edu/up/modelos/Cliente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Cinema/br/edu/up/modelos/FileManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Cinema/br/edu/up/modelos/Filme.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Cinema/br/edu/up/modelos/Ingresso.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Cinema/br/edu/up/modelos/LastId.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Cinema/br/edu/up/modelos/Sessao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Principal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/Cliente.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/FileManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/Filme.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/Ingresso.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/edu/up/Principal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/Sessao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/dados/listaFilmes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/edu/up/dados/listaFilmes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/dados/listaSessoes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/edu/up/dados/listaSessoes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/modelos/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/edu/up/modelos/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/modelos/Filme.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/edu/up/modelos/Filme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/modelos/LastId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/edu/up/modelos/LastId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/modelos/Sessao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/edu/up/modelos/Sessao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/edu/up/modelos/Transacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/edu/up/modelos/Transacao.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2fsUkRcrqxoEo3DknnwKyufBRyV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;E:/UP/5ºSem/DesnvolvimentoDeSoftware/Cinema/src/Main.java&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Cinema" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Cinema" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6ae79a24-e72d-46d4-95b9-4b4d6f248083" name="Changes" comment="" />
+      <created>1714589423380</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714589423380</updated>
+      <workItem from="1714589424331" duration="1842000" />
+      <workItem from="1714697500700" duration="7520000" />
+      <workItem from="1714732957902" duration="2792000" />
+      <workItem from="1714845047634" duration="2077000" />
+      <workItem from="1714907863266" duration="23323000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

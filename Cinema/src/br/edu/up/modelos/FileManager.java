@@ -36,7 +36,7 @@ public class FileManager {
     // Método para carregar filmes a partir do arquivo txt listaFilmes
     private void carregarFilmes() throws IOException {
         //Verificando se ja existe o arquivo txt
-        if (!arqClientes.exists()) {
+        if (!arqFilmes.exists()) {
             arqFilmes.createNewFile();
         }
         //Inicializando Buffered que ira pemitir lermos linha a linha do arquivo
@@ -83,21 +83,28 @@ public class FileManager {
         for (Filme i : filmes) {
             if (i.getTitulo().equals(filme.getTitulo())) {
                 filmes.remove(i);
+                System.out.println("Filme removido");
+                return;
             }
         }
+        System.out.println("Filme não removido");
     }
 
     public Filme buscarFilme(String titulo) {
         for (Filme i : filmes) {
             if (i.getTitulo().equals(titulo)) {
+                System.out.println("Filme encontrado");
                 return i;
             }
         }
+        System.out.println("Filme não encontrado");
         return null;
     }
 
+
+
     private void carregarSessoes() throws IOException {
-        if (!arqClientes.exists()) {
+        if (!arqSessoes.exists()) {
             arqSessoes.createNewFile();
             return;
         }
@@ -164,6 +171,25 @@ public class FileManager {
         catch (Exception e) {
             System.out.println("Sessão não adicionado");
         }
+    }
+
+    public Boolean deletarSessao(int idSessao) throws IOException {
+        for (Sessao i : sessoes) {
+            if (i.getIdSessao() == idSessao) {
+                sessoes.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Sessao buscarSessao(int IdSessao) throws IOException {
+        for (Sessao i : sessoes) {
+            if (i.getIdSessao() == IdSessao) {
+                return i;
+            }
+        }
+        return null;
     }
 
     private void carregarClientes() throws IOException {

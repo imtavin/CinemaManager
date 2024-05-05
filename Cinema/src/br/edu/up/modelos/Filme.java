@@ -5,9 +5,16 @@ public class Filme {
     private String titulo;
     private String genero;
 
+    public Filme(Integer idFilme, String titulo, String genero) {
+        this.idFilme = idFilme;
+        this.titulo = titulo;
+        this.genero = genero;
+    }
+
     public Filme(String titulo, String genero) {
         this.genero = genero;
         this.titulo = titulo;
+        this.idFilme = LastId.getLastIdFilme();
     }
 
     public String getTitulo() {

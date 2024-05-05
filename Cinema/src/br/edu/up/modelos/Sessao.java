@@ -15,11 +15,9 @@ public class Sessao {
         this.tipoDublado = tipoDublado;
         this.tipo3D = tipo3D;
         this.idSessao = (LastId.getLastIdSessao()) + 1;
-        System.out.println("Sem ID: " + idSessao);
     }
 
     public Sessao(int idSessao, Filme filme, String horario, boolean tipo3D, boolean tipoDublado) {
-        System.out.println("Com ID: " + idSessao);
         this.idSessao = idSessao;
         this.filme = filme;
         this.horario = horario;
