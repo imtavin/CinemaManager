@@ -9,11 +9,9 @@ public class Transacao {
     private Cliente cliente;
     private LocalDateTime dataTransacao;
 
-    public Transacao(int idTransacao, Ingresso ingresso, Sessao sessao, Cliente cliente, LocalDateTime dataTransacao) {
+    public Transacao(int idTransacao, Ingresso ingresso, LocalDateTime dataTransacao) {
         this.idTransacao = idTransacao;
         this.ingresso = ingresso;
-        this.sessao = sessao;
-        this.cliente = cliente;
         this.dataTransacao = dataTransacao;
     }
 

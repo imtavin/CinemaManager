@@ -40,7 +40,8 @@ public class Principal {
                         //Adicionar Filme
                         case 1:
                             System.out.println("Informe o título do filme:");
-                            String titulo = scanner.next();
+                            String titulo = scanner.nextLine(); // Consumir quebra de linha pendente
+                            titulo = scanner.nextLine(); // Ler o título corretamente
                             System.out.println("Informe o gênero do filme:");
                             String genero = scanner.next();
                             manager.adicionarFilme(new Filme(titulo, genero));
@@ -48,7 +49,8 @@ public class Principal {
                         //Remover Filme
                         case 2:
                             System.out.println("Informe o título do filme a ser removido:");
-                            String tituloRemover = scanner.next();
+                            String tituloRemover = scanner.nextLine();// Consumir quebra de linha pendente
+                            tituloRemover = scanner.nextLine();
                             Filme filmeRemover = manager.buscarFilme(tituloRemover);
                             if (filmeRemover != null) {
                                 manager.deletarFilme(filmeRemover);
@@ -59,7 +61,8 @@ public class Principal {
                         //Procurar Filme
                         case 3:
                             System.out.println("Informe o título do filme a ser procurado:");
-                            String tituloProcurar = scanner.next();
+                            String tituloProcurar = scanner.nextLine();// Consumir quebra de linha pendente
+                            tituloProcurar = scanner.nextLine();
                             Filme filmeProcurado = manager.buscarFilme(tituloProcurar);
                             if (filmeProcurado != null) {
                                 System.out.println("Filme encontrado:");
@@ -98,7 +101,9 @@ public class Principal {
                                 boolean tipo3D = scanner.nextBoolean();
                                 System.out.println("A sessão é dublada (true/false):");
                                 boolean tipoDublado = scanner.nextBoolean();
-                                manager.adicionarSessao(new Sessao(filme, horario, tipo3D, tipoDublado));
+                                System.out.println("Informe o número da sala da sessão:");
+                                int sala = scanner.nextInt();
+                                manager.adicionarSessao(new Sessao(filme, horario, tipo3D, tipoDublado, sala));
                             } else {
                                 System.out.println("Filme não encontrado.");
                             }
@@ -147,8 +152,10 @@ public class Principal {
                     System.out.println("///////////////////CLIENTES////////////////");
                     Integer opClientes;
                     System.out.println("1-Adicionar Cliente");
-                    System.out.println("2-Listar Clientes");
-                    System.out.println("3-Voltar");
+                    System.out.println("2-Remover Cliente");
+                    System.out.println("3-Pesquisar Cliente");
+                    System.out.println("4-Listar Clientes");
+                    System.out.println("5-Voltar");
                     opClientes = scanner.nextInt();
                     switch (opClientes) {
                         case 1:
@@ -161,8 +168,32 @@ public class Principal {
                             manager.adicionarCliente(new Cliente(nomeCliente, cpfCliente, idadeCliente));
                             break;
                         case 2:
+                            // Remover Cliente
+                            break;
+                        case 3:
+                            // Pesquisar Cliente
+                            break;
+                        case 4:
                             System.out.println("Lista de Clientes:");
                             //manager.listarClientes();
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 5:
+                    System.out.println("//////////////TRANSACÕES//////////////");
+                    Integer opTransacoes;
+                    System.out.println("1-Listar Todas as Transações");
+                    System.out.println("2-Listar Transações por Data");
+                    System.out.println("3-Voltar");
+                    opTransacoes = scanner.nextInt();
+                    switch (opTransacoes) {
+                        case 1:
+                            // Listar Todas as Transações
+                            break;
+                        case 2:
+                            // Listar Transações por Data
                             break;
                         default:
                             break;
@@ -172,5 +203,8 @@ public class Principal {
                     break;
             }
         }
+        manager.salvarSessoes();
+        manager.salvarFilmes();
+        manager.salvarClientes();
     }
 }

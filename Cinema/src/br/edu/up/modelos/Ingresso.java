@@ -1,31 +1,40 @@
 package br.edu.up.modelos;
 
-public class Ingresso extends Sessao {
-    private double preco = 30.00;
-    private Boolean meia;
+public class Ingresso {
+    private Sessao sessao;
+    private int assento;
+    private Cliente cliente;
+    private boolean meia;
 
-    public Ingresso(Filme filme, String horario, boolean tipoDublado, boolean tipo3D, Boolean meia) {
-        super(filme, horario, tipoDublado, tipo3D);
+    public Ingresso(Sessao sessao, int assento, Cliente cliente, boolean meia) {
+        this.sessao = sessao;
+        this.assento = assento;
+        this.cliente = cliente;
         this.meia = meia;
-        if (this.getTipo3D() == true){
-            this.preco = preco * 1.5;
-        }
+    }
 
-        if(this.meia == true){
-            this.preco = preco / 2;
-        }
+    public Sessao getSessao() {
+        return sessao;
+    }
+
+    public int getAssento() {
+        return assento;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public boolean isMeia() {
+        return meia;
     }
 
     @Override
     public String toString() {
         return "Ingresso{" +
-                "Sessao{" +
-                "horario='" + this.getHorario() + '\'' +
-                ", tipo3D=" + this.getTipo3D() +
-                ", tipoDublado=" + this.getTipoDublado() +
-                ", Filme:" +  + '\'' +
-                ", Gênero: " + + '\'' + "}" +
-                ", preco=" + preco +
+                "sessao=" + sessao +
+                ", assento=" + assento +
+                ", cliente=" + cliente +
                 ", meia=" + meia +
                 '}';
     }

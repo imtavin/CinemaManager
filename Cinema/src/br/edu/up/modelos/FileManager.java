@@ -2,9 +2,7 @@
 package br.edu.up.modelos;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 // Definição da classe FileManager
 public class FileManager {
@@ -101,6 +99,30 @@ public class FileManager {
         return null;
     }
 
+    // Listar todos os filmes em ordem de título
+    public void listarFilmesOrdemTitulo() {
+        List<Filme> filmesOrdenados = new ArrayList<>(filmes);
+        filmesOrdenados.sort(Comparator.comparing(Filme::getTitulo));
+        for (Filme filme : filmesOrdenados) {
+            System.out.println(filme);
+        }
+    }
+
+    // Listar todos os filmes em ordem de gênero
+    public void listarFilmesOrdemGenero() {
+        List<Filme> filmesOrdenados = new ArrayList<>(filmes);
+        filmesOrdenados.sort(Comparator.comparing(Filme::getGenero));
+        for (Filme filme : filmesOrdenados) {
+            System.out.println(filme);
+        }
+    }
+
+    // Listar os filmes na ordem em que foram adicionados
+    public void listarFilmesOrdemAdicao() {
+        for (Filme filme : filmes) {
+            System.out.println(filme);
+        }
+    }
 
 
     private void carregarSessoes() throws IOException {
@@ -118,6 +140,12 @@ public class FileManager {
             String horario = dados[2].trim();
             boolean tipo3D = Boolean.parseBoolean(dados[3].trim());
             boolean tipoDublado = Boolean.parseBoolean(dados[4].trim());
+            int sala = Integer.parseInt(dados[5].trim());
+            String[] assentosStr = dados[6].trim().split("-");
+            List<Integer> assentos = new ArrayList<>();
+            for (String assentoStr : assentosStr) {
+                assentos.add(Integer.parseInt(assentoStr.trim()));
+            }
 
             if (idSessao > LastId.getLastIdSessao()) {
                 LastId.setLastIdSessao(idSessao);
@@ -125,10 +153,10 @@ public class FileManager {
 
             Filme filme = buscarFilme(tituloFilme);
             if (filme != null) {
-                Sessao sessao = new Sessao(idSessao, filme, horario, tipo3D, tipoDublado);
+                Sessao sessao = new Sessao(idSessao, filme, horario, tipo3D, tipoDublado, sala, assentos);
                 sessoes.add(sessao);
             }else {
-                Sessao sessao = new Sessao(idSessao, null, horario, tipo3D, tipoDublado);
+                Sessao sessao = new Sessao(idSessao, null, horario, tipo3D, tipoDublado, sala, assentos);
                 sessoes.add(sessao);
             }
         }
@@ -140,11 +168,25 @@ public class FileManager {
         BufferedWriter bw = new BufferedWriter(new FileWriter(arqSessoes));
         for (Sessao sessao : sessoes) {
             bw.write(sessao.getIdSessao() + ", " + sessao.getFilme().getTitulo() + ", "
-                    + sessao.getHorario() + ", " + sessao.getTipo3D() + ", " + sessao.getTipoDublado());
+                    + sessao.getHorario() + ", " + sessao.getTipo3D() + ", "
+                    + sessao.getTipoDublado() + ", " + sessao.getSala() + ", " + contatenaAssentos(sessao.getAssentosDisponiveis()));
             bw.newLine();
         }
         bw.close();
         System.out.println("Sessoes salvas!");
+    }
+
+    public String contatenaAssentos(List<Integer> assentosDisponiveis){
+        StringBuilder assentosStr = new StringBuilder();
+
+        for (int i = 0; i < assentosDisponiveis.size(); i++) {
+            assentosStr.append(assentosDisponiveis.get(i));
+            if (i != assentosDisponiveis.size() - 1) {
+                assentosStr.append("-");
+            }
+        }
+
+        return assentosStr.toString();
     }
 
     public void adicionarSessao(Sessao sessao) {
@@ -213,7 +255,7 @@ public class FileManager {
 
 
     public void salvarClientes() throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(arqSessoes));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(arqClientes));
         for (Cliente cliente : clientes) {
             bw.write(cliente.getNome() + "," + cliente.getCpf() + "," + cliente.getIdade());
             bw.newLine();
