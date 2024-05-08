@@ -1,0 +1,3 @@
+1, Como treinar seu dragão, 10:00, false, true
+2, Batman, 10:00, true, false
+3, Batman, 15:00, true, true
