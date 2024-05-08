@@ -14,14 +14,13 @@ public class Principal {
         Scanner scanner = new Scanner(System.in);
         Integer opcao = 1;
 
-        while (opcao != 6) {
+        while (opcao != 5) {
             System.out.println("////////////////////GERENCIAMENTO DE CINEMA////////////////");
             System.out.println("1-Filmes");
             System.out.println("2-Sessões");
-            System.out.println("3-Ingresso");
+            System.out.println("3-Vendas");
             System.out.println("4-Clientes");
-            System.out.println("5-Transações");
-            System.out.println("6-Encerrar Programa");
+            System.out.println("5-Encerrar Programa");
             System.out.println("///////////////////////////////////////////////////////////");
             opcao = scanner.nextInt();
 
@@ -73,8 +72,30 @@ public class Principal {
                             break;
                         //Listar Filme
                         case 4:
-                            System.out.println("Lista de Filmes:");
-                            //manager.listarFilmes();
+                            System.out.println("////////LISTAR FILMES//////// ");
+                            Integer opListaFilmes;
+                            System.out.println("1-Listar");
+                            System.out.println("2-Listar por Titulo");
+                            System.out.println("3-Listar por Genero");
+                            System.out.println("4-Voltar ao Inicio");
+                            opListaFilmes = scanner.nextInt();
+
+                            switch (opListaFilmes){
+                                case 1:
+                                    System.out.println("Listando...");
+                                    manager.listarFilmes();
+                                    break;
+                                case 2:
+                                    System.out.println("Listando por titulo...");
+                                    manager.listarFilmesOrdenadosPorTitulo();
+                                    break;
+                                case 3:
+                                    System.out.println("Listando por genero...");
+                                    manager.listarFilmesOrdenadosPorGenero();
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         default:
                             break;
@@ -120,30 +141,81 @@ public class Principal {
                             break;
                         case 3:
                             System.out.println("Pesquisar sessao, informe o ID da sessao:");
-                            //
+                            int IDSessaoPesquisar = scanner.nextInt();
+                            Sessao sessaoPesquisar = manager.buscarSessao(IDSessaoPesquisar);
                             break;
                         case 4:
-                            System.out.println("Lista de Sessões:");
-                            //manager.listarSessoes();
+                            System.out.println("////////LISTAR SESSÕES//////// ");
+                            Integer opListaSessao;
+                            System.out.println("1-Listar");
+                            System.out.println("2-Listar por ID");
+                            System.out.println("3-Listar por Titulo do Filme");
+                            System.out.println("4-Listar por Sala");
+                            System.out.println("5-Voltar ao Inicio");
+                            opListaSessao = scanner.nextInt();
+
+                            switch (opListaSessao){
+                                case 1:
+                                    System.out.println("Listando...");
+                                    manager.listarSessoes();
+                                    break;
+                                case 2:
+                                    System.out.println("Listando por ID...");
+                                    manager.listarSessoesOrdenadasPorId();
+                                    break;
+                                case 3:
+                                    System.out.println("Listando por titulo do filme...");
+                                    manager.listarSessoesOrdenadasPorTituloFilme();
+                                    break;
+                                case 4:
+                                    System.out.println("Listando por sala...");
+                                    manager.listarSessoesOrdenadasPorSala();
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         default:
                             break;
                     }
                     break;
                 case 3:
-                    System.out.println("//////////////INGRESSOS//////////////");
+                    System.out.println("//////////////VENDAS//////////////");
                     Integer opIngresso;
                     System.out.println("1-Vender Ingresso");
-                    System.out.println("2-Listar Ingressos");
-                    System.out.println("3-Voltar");
+                    System.out.println("2-Valores");
+                    System.out.println("3-Listar Transações");
+                    System.out.println("4-Voltar");
                     opIngresso = scanner.nextInt();
                     switch (opIngresso) {
                         case 1:
                             System.out.println("Informe o ID da sessão:");
                             break;
                         case 2:
-                            System.out.println("Listar Ingressos:");
+                            System.out.println("Valores:");
                             break;
+                        case 3:
+                            System.out.println("////////LISTAR TRANSAÇÕES//////// ");
+                            Integer opListaIngresso;
+                            System.out.println("1-Listar");
+                            System.out.println("2-Listar por Data");
+                            System.out.println("3-Listar por ID");
+                            System.out.println("4-Voltar ao Inicio");
+                            opListaIngresso = scanner.nextInt();
+
+                            switch (opListaIngresso){
+                                case 1:
+                                    System.out.println("Listando...");
+                                    break;
+                                case 2:
+                                    System.out.println("Listando por data...");
+                                    break;
+                                case 3:
+                                    System.out.println("Listando por ID...");
+                                    break;
+                                default:
+                                    break;
+                            }
                         default:
                             break;
                     }
@@ -160,7 +232,8 @@ public class Principal {
                     switch (opClientes) {
                         case 1:
                             System.out.println("Informe o nome do cliente:");
-                            String nomeCliente = scanner.next();
+                            String nomeCliente = scanner.nextLine();
+                            nomeCliente = scanner.nextLine();
                             System.out.println("Informe o CPF do cliente:");
                             String cpfCliente = scanner.next();
                             System.out.println("Informe a idade do cliente:");
@@ -168,32 +241,45 @@ public class Principal {
                             manager.adicionarCliente(new Cliente(nomeCliente, cpfCliente, idadeCliente));
                             break;
                         case 2:
-                            // Remover Cliente
+                            System.out.println("Informe o CPF do cliente a ser removido:");
+                            String cpfClienteRemover = scanner.next();
+                            manager.removerCliente(cpfClienteRemover);
                             break;
                         case 3:
-                            // Pesquisar Cliente
+                            System.out.println("Informe o CPF do cliente a ser pesquisado:");
+                            String cpfClientePesquisar = scanner.next();
+                            Cliente cliente = manager.buscarCliente(cpfClientePesquisar);
                             break;
                         case 4:
-                            System.out.println("Lista de Clientes:");
-                            //manager.listarClientes();
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case 5:
-                    System.out.println("//////////////TRANSACÕES//////////////");
-                    Integer opTransacoes;
-                    System.out.println("1-Listar Todas as Transações");
-                    System.out.println("2-Listar Transações por Data");
-                    System.out.println("3-Voltar");
-                    opTransacoes = scanner.nextInt();
-                    switch (opTransacoes) {
-                        case 1:
-                            // Listar Todas as Transações
-                            break;
-                        case 2:
-                            // Listar Transações por Data
+                            System.out.println("//////LISTAR CLIENTES//////");
+                            Integer opListaClientes;
+                            System.out.println("1-Listar");
+                            System.out.println("2-Listar por Nome");
+                            System.out.println("3-Listar por CPF");
+                            System.out.println("4-Listar por Idade");
+                            System.out.println("5-Voltar ao Inicio");
+                            opListaClientes = scanner.nextInt();
+
+                            switch (opListaClientes){
+                                case 1:
+                                    System.out.println("Listando...");
+                                    manager.listarClientes();
+                                    break;
+                                case 2:
+                                    System.out.println("Listando por nome...");
+                                    manager.listarClientesOrdenadosPorNome();
+                                    break;
+                                case 3:
+                                    System.out.println("Listando por CPF...");
+                                    manager.listarClientesOrdenadosPorCpf();
+                                    break;
+                                case 4:
+                                    System.out.println("Listando por idade...");
+                                    manager.listarClientesOrdenadosPorIdade();
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         default:
                             break;

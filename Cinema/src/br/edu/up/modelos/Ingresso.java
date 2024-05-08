@@ -3,14 +3,17 @@ package br.edu.up.modelos;
 public class Ingresso {
     private Sessao sessao;
     private int assento;
-    private Cliente cliente;
     private boolean meia;
+    private double preco;
 
-    public Ingresso(Sessao sessao, int assento, Cliente cliente, boolean meia) {
+    public Ingresso(Sessao sessao, int assento, boolean meia) {
         this.sessao = sessao;
         this.assento = assento;
-        this.cliente = cliente;
         this.meia = meia;
+
+        if(this.meia){
+            this.preco = this.sessao.getPreco()/2;
+        }
     }
 
     public Sessao getSessao() {
@@ -21,12 +24,12 @@ public class Ingresso {
         return assento;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
     public boolean isMeia() {
         return meia;
+    }
+
+    public double getPreco() {
+        return preco;
     }
 
     @Override
@@ -34,7 +37,6 @@ public class Ingresso {
         return "Ingresso{" +
                 "sessao=" + sessao +
                 ", assento=" + assento +
-                ", cliente=" + cliente +
                 ", meia=" + meia +
                 '}';
     }

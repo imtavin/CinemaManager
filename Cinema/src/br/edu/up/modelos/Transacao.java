@@ -1,49 +1,64 @@
 package br.edu.up.modelos;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Transacao {
     private int idTransacao;
-    private Ingresso ingresso;
-    private Sessao sessao;
+    private List<Ingresso> ingressos;
     private Cliente cliente;
-    private LocalDateTime dataTransacao;
+    private LocalDateTime horario;
+    private double valorTotal;
 
-    public Transacao(int idTransacao, Ingresso ingresso, LocalDateTime dataTransacao) {
+    public Transacao(List<Ingresso> ingressos, Cliente cliente, LocalDateTime horario) {
+        this.ingressos = ingressos;
+        this.cliente = cliente;
+        this.horario = horario;
+        this.valorTotal = valorTotal;
+
+        this.idTransacao = (LastId.getLastIdTransacao()) + 1;
+
+        for (Ingresso ingresso : ingressos) {
+            this.valorTotal = this.valorTotal + ingresso.getPreco();
+        }
+    }
+
+    public Transacao(int idTransacao, List<Ingresso> ingressos, Cliente cliente, LocalDateTime horario, double valorTotal) {
         this.idTransacao = idTransacao;
-        this.ingresso = ingresso;
-        this.dataTransacao = dataTransacao;
+        this.ingressos = ingressos;
+        this.cliente = cliente;
+        this.horario = horario;
+        this.valorTotal = valorTotal;
     }
 
-    public Ingresso getIngresso() {
-        return ingresso;
+    public int getIdTransacao() {
+        return idTransacao;
     }
 
-    public void setIngresso(Ingresso ingresso) {
-        this.ingresso = ingresso;
-    }
-
-    public Sessao getSessao() {
-        return sessao;
-    }
-
-    public void setSessao(Sessao sessao) {
-        this.sessao = sessao;
+    public List<Ingresso> getIngressos() {
+        return ingressos;
     }
 
     public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public LocalDateTime getHorario() {
+        return horario;
     }
 
-    public LocalDateTime getDataTransacao() {
-        return dataTransacao;
+    public double getValorTotal() {
+        return valorTotal;
     }
 
-    public void setDataTransacao(LocalDateTime dataTransacao) {
-        this.dataTransacao = dataTransacao;
+    @Override
+    public String toString() {
+        return "Transacao{" +
+                "idTransacao=" + idTransacao +
+                ", ingressos=" + ingressos +
+                ", cliente=" + cliente +
+                ", horario=" + horario +
+                ", valorTotal=" + valorTotal +
+                '}';
     }
 }

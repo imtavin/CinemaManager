@@ -2,6 +2,7 @@
 package br.edu.up.modelos;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 // Definição da classe FileManager
@@ -10,13 +11,14 @@ public class FileManager {
     private final List<Filme> filmes;
     private final List<Sessao> sessoes;
     private final List<Cliente> clientes;
+    private final  List<Transacao> transacoes;
 
     //Diretorio dos dados
     File diretorio = new File("E:\\UP\\5ºSem\\DesnvolvimentoDeSoftware\\Cinema\\src\\br\\edu\\up\\dados");
     File arqFilmes = new File(diretorio, "listaFilmes.txt");
     File arqSessoes = new File(diretorio, "listaSessoes.txt");
     File arqClientes = new File(diretorio, "listaClientes.txt");
-    File arqVendas = new File(diretorio, "listaVendas.txt");
+    File arqTransacoes = new File(diretorio, "listaTransacoes.txt");
 
     // Construtor que carrega filmes e sessões
     public FileManager() throws IOException {
@@ -24,11 +26,13 @@ public class FileManager {
         this.sessoes = new ArrayList<>();
         this.filmes = new ArrayList<>();
         this.clientes = new ArrayList<>();
+        this.transacoes = new ArrayList<>();
 
         // Chamamos as funçoes para pegar os dados do TXT e colocar nas listas
         carregarFilmes();
         carregarSessoes();
         carregarClientes();
+        carregarTransacoes();
     }
 
     // Método para carregar filmes a partir do arquivo txt listaFilmes
@@ -91,36 +95,51 @@ public class FileManager {
     public Filme buscarFilme(String titulo) {
         for (Filme i : filmes) {
             if (i.getTitulo().equals(titulo)) {
-                System.out.println("Filme encontrado");
                 return i;
             }
         }
-        System.out.println("Filme não encontrado");
         return null;
     }
 
+    public boolean buscarFilmeExiste(String titulo) {
+        for (Filme i : filmes) {
+            if (i.getTitulo().equals(titulo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Listar todos os filmes em ordem de título
-    public void listarFilmesOrdemTitulo() {
+    public void listarFilmesOrdenadosPorTitulo() {
         List<Filme> filmesOrdenados = new ArrayList<>(filmes);
         filmesOrdenados.sort(Comparator.comparing(Filme::getTitulo));
+
         for (Filme filme : filmesOrdenados) {
-            System.out.println(filme);
+            System.out.println("Título: " + filme.getTitulo());
+            System.out.println("Gênero: " + filme.getGenero());
+            System.out.println("--------------------------------------");
         }
     }
 
     // Listar todos os filmes em ordem de gênero
-    public void listarFilmesOrdemGenero() {
+    public void listarFilmesOrdenadosPorGenero() {
         List<Filme> filmesOrdenados = new ArrayList<>(filmes);
         filmesOrdenados.sort(Comparator.comparing(Filme::getGenero));
+
         for (Filme filme : filmesOrdenados) {
-            System.out.println(filme);
+            System.out.println("Título: " + filme.getTitulo());
+            System.out.println("Gênero: " + filme.getGenero());
+            System.out.println("--------------------------------------");
         }
     }
 
     // Listar os filmes na ordem em que foram adicionados
-    public void listarFilmesOrdemAdicao() {
+    public void listarFilmes() {
         for (Filme filme : filmes) {
-            System.out.println(filme);
+            System.out.println("Título: " + filme.getTitulo());
+            System.out.println("Gênero: " + filme.getGenero());
+            System.out.println("--------------------------------------");
         }
     }
 
@@ -225,7 +244,7 @@ public class FileManager {
         return false;
     }
 
-    public Sessao buscarSessao(int IdSessao) throws IOException {
+    public Sessao buscarSessao(int IdSessao) {
         for (Sessao i : sessoes) {
             if (i.getIdSessao() == IdSessao) {
                 return i;
@@ -233,6 +252,68 @@ public class FileManager {
         }
         return null;
     }
+
+    public void listarSessoes(){
+        for (Sessao sessao : sessoes) {
+            System.out.println("ID: " + sessao.getIdSessao());
+            System.out.println("Filme: " + sessao.getFilme().getTitulo());
+            System.out.println("Horário: " + sessao.getHorario());
+            System.out.println("Tipo 3D: " + (sessao.getTipo3D() ? "Sim" : "Não"));
+            System.out.println("Tipo Dublado: " + (sessao.getTipoDublado() ? "Sim" : "Não"));
+            System.out.println("Sala: " + sessao.getSala());
+            System.out.println("Assentos disponíveis: " + sessao.getAssentosDisponiveis());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    public void listarSessoesOrdenadasPorId() {
+        List<Sessao> sessoesOrdenadas = new ArrayList<>(sessoes);
+        sessoesOrdenadas.sort(Comparator.comparingInt(Sessao::getIdSessao));
+
+        for (Sessao sessao : sessoesOrdenadas) {
+            System.out.println("ID: " + sessao.getIdSessao());
+            System.out.println("Filme: " + sessao.getFilme().getTitulo());
+            System.out.println("Horário: " + sessao.getHorario());
+            System.out.println("Tipo 3D: " + (sessao.getTipo3D() ? "Sim" : "Não"));
+            System.out.println("Tipo Dublado: " + (sessao.getTipoDublado() ? "Sim" : "Não"));
+            System.out.println("Sala: " + sessao.getSala());
+            System.out.println("Assentos disponíveis: " + sessao.getAssentosDisponiveis());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    public void listarSessoesOrdenadasPorTituloFilme() {
+        List<Sessao> sessoesOrdenadas = new ArrayList<>(sessoes);
+        sessoesOrdenadas.sort(Comparator.comparing(sessao -> sessao.getFilme().getTitulo()));
+
+        for (Sessao sessao : sessoesOrdenadas) {
+            System.out.println("ID: " + sessao.getIdSessao());
+            System.out.println("Filme: " + sessao.getFilme().getTitulo());
+            System.out.println("Horário: " + sessao.getHorario());
+            System.out.println("Tipo 3D: " + (sessao.getTipo3D() ? "Sim" : "Não"));
+            System.out.println("Tipo Dublado: " + (sessao.getTipoDublado() ? "Sim" : "Não"));
+            System.out.println("Sala: " + sessao.getSala());
+            System.out.println("Assentos disponíveis: " + sessao.getAssentosDisponiveis());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    public void listarSessoesOrdenadasPorSala() {
+        List<Sessao> sessoesOrdenadas = new ArrayList<>(sessoes);
+        sessoesOrdenadas.sort(Comparator.comparingInt(Sessao::getSala));
+
+        for (Sessao sessao : sessoesOrdenadas) {
+            System.out.println("ID: " + sessao.getIdSessao());
+            System.out.println("Filme: " + sessao.getFilme().getTitulo());
+            System.out.println("Horário: " + sessao.getHorario());
+            System.out.println("Tipo 3D: " + (sessao.getTipo3D() ? "Sim" : "Não"));
+            System.out.println("Tipo Dublado: " + (sessao.getTipoDublado() ? "Sim" : "Não"));
+            System.out.println("Sala: " + sessao.getSala());
+            System.out.println("Assentos disponíveis: " + sessao.getAssentosDisponiveis());
+            System.out.println("--------------------------------------");
+        }
+    }
+
 
     private void carregarClientes() throws IOException {
         if (!arqClientes.exists()) {
@@ -274,6 +355,205 @@ public class FileManager {
         clientes.add(cliente);
         System.out.println("Cliente adicionado");
 
+    }
+
+    public void removerCliente(String cpf) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getCpf().equals(cpf)) {
+                clientes.remove(cliente);
+                System.out.println("Cliente removido");
+                return;
+            }
+        }
+        System.out.println("Cliente não encontrado");
+    }
+
+    public Cliente buscarCliente(String cpf){
+        for (Cliente cliente : clientes) {
+            if (cliente.getCpf().equals(cpf)) {
+                System.out.println("Cliente encontrado");
+                return cliente;
+            }
+        }
+        System.out.println("Cliente não encontrado");
+        return null;
+    }
+
+    public void listarClientes(){
+        for (Cliente cliente : clientes) {
+            System.out.println("Nome: " + cliente.getNome());
+            System.out.println("CPF: " + cliente.getCpf());
+            System.out.println("Idade: " + cliente.getIdade());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    public void listarClientesOrdenadosPorNome() {
+        List<Cliente> clientesOrdenados = new ArrayList<>(clientes);
+        clientesOrdenados.sort(Comparator.comparing(Cliente::getNome));
+
+        for (Cliente cliente : clientesOrdenados) {
+            System.out.println("Nome: " + cliente.getNome());
+            System.out.println("CPF: " + cliente.getCpf());
+            System.out.println("Idade: " + cliente.getIdade());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    public void listarClientesOrdenadosPorCpf() {
+        List<Cliente> clientesOrdenados = new ArrayList<>(clientes);
+        clientesOrdenados.sort(Comparator.comparing(Cliente::getCpf));
+
+        for (Cliente cliente : clientesOrdenados) {
+            System.out.println("Nome: " + cliente.getNome());
+            System.out.println("CPF: " + cliente.getCpf());
+            System.out.println("Idade: " + cliente.getIdade());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    public void listarClientesOrdenadosPorIdade() {
+        List<Cliente> clientesOrdenados = new ArrayList<>(clientes);
+        clientesOrdenados.sort(Comparator.comparingInt(Cliente::getIdade));
+
+        for (Cliente cliente : clientesOrdenados) {
+            System.out.println("Nome: " + cliente.getNome());
+            System.out.println("CPF: " + cliente.getCpf());
+            System.out.println("Idade: " + cliente.getIdade());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    private void carregarTransacoes() throws IOException {
+        if (!arqTransacoes.exists()) {
+            arqTransacoes.createNewFile();
+            return;
+        }
+
+        BufferedReader br = new BufferedReader(new FileReader(arqTransacoes));
+        String linha;
+        while ((linha = br.readLine()) != null) {
+            String[] dados = linha.split(",");
+            int idTransacao = Integer.parseInt(dados[0].trim());
+            List<Ingresso> ingressos = new ArrayList<>();
+            int i = 1; // Índice para percorrer os dados de ingresso
+            while (i < dados.length - 2) {
+                int assento = Integer.parseInt(dados[i].trim());
+                boolean meia = Boolean.parseBoolean(dados[i + 1].trim());
+                int idSessao = Integer.parseInt(dados[i + 2].trim());
+                Sessao sessao = buscarSessao(idSessao);
+                if (sessao == null) {
+                    ingressos.add(new Ingresso(null, assento, meia));
+                } else {
+                    ingressos.add(new Ingresso(sessao, assento, meia));
+                }
+                i += 3; // Avança para o próximo conjunto de valores
+            }
+
+            String cpfCliente = dados[dados.length - 2].trim();
+            Cliente cliente = buscarCliente(cpfCliente);
+
+            LocalDateTime horario = LocalDateTime.parse(dados[dados.length - 3].trim());
+            double valorTotal = Double.parseDouble(dados[dados.length - 1].trim());
+
+            if (idTransacao > LastId.getLastIdTransacao()) {
+                LastId.setLastIdTransacao(idTransacao);
+            }
+
+            Transacao transacao = new Transacao(idTransacao, ingressos, cliente, horario, valorTotal);
+            transacoes.add(transacao);
+        }
+        br.close();
+    }
+
+    public void salvarTransacoes() throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(arqTransacoes));
+        for (Transacao transacao : transacoes) {
+            bw.write(transacao.getIdTransacao() + ",");
+            for (Ingresso ingresso : transacao.getIngressos()) {
+                if (ingresso.getSessao() == null) {
+                    bw.write(ingresso.getAssento() + "," + ingresso.isMeia() + ",null,");
+                } else {
+                    bw.write(ingresso.getAssento() + "," + ingresso.isMeia() + "," + ingresso.getSessao().getIdSessao() + ",");
+                }
+            }
+            bw.write(transacao.getCliente().getCpf() + ",");
+            bw.write(transacao.getHorario().toString() + ","); // Adiciona o horário aqui
+            bw.write(transacao.getValorTotal() + "\n");
+        }
+        bw.close();
+        System.out.println("Transações salvas!");
+    }
+
+    public void adicionarTransacao(Transacao transacao) {
+        LastId.setLastIdTransacao(LastId.getLastIdTransacao() + 1);
+        transacoes.add(transacao);
+    }
+
+    public Transacao buscarTransacao(int idTransacao) {
+        for (Transacao transacao : transacoes) {
+            if (transacao.getIdTransacao() == idTransacao) {
+                return transacao;
+            }
+        }
+        return null;
+    }
+
+    public void listarTransacoes() {
+        for (Transacao transacao : transacoes) {
+            System.out.println("ID da Transação: " + transacao.getIdTransacao());
+            System.out.println("Cliente: " + transacao.getCliente().getNome());
+            System.out.println("Data da Transação: " + transacao.getHorario());
+            System.out.println("Valor Total: " + transacao.getValorTotal());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    public void listarTransacoesOrdenadasPorIdTransacao() {
+        List<Transacao> transacoesOrdenadas = new ArrayList<>(transacoes);
+        transacoesOrdenadas.sort(Comparator.comparingInt(Transacao::getIdTransacao));
+
+        for (Transacao transacao : transacoesOrdenadas) {
+            System.out.println("ID da Transação: " + transacao.getIdTransacao());
+            System.out.println("Cliente: " + transacao.getCliente().getNome());
+            System.out.println("Data da Transação: " + transacao.getHorario());
+            System.out.println("Valor Total: " + transacao.getValorTotal());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    public void listarTransacoesOrdenadasPorData() {
+        List<Transacao> transacoesOrdenadas = new ArrayList<>(transacoes);
+        transacoesOrdenadas.sort(Comparator.comparing(Transacao::getHorario));
+
+        for (Transacao transacao : transacoesOrdenadas) {
+            System.out.println("ID da Transação: " + transacao.getIdTransacao());
+            System.out.println("Cliente: " + transacao.getCliente().getNome());
+            System.out.println("Data da Transação: " + transacao.getHorario());
+            System.out.println("Valor Total: " + transacao.getValorTotal());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    public void listarTransacoesOrdenadasPorValorTotal() {
+        List<Transacao> transacoesOrdenadas = new ArrayList<>(transacoes);
+        transacoesOrdenadas.sort(Comparator.comparingDouble(Transacao::getValorTotal));
+
+        for (Transacao transacao : transacoesOrdenadas) {
+            System.out.println("ID da Transação: " + transacao.getIdTransacao());
+            System.out.println("Cliente: " + transacao.getCliente().getNome());
+            System.out.println("Data da Transação: " + transacao.getHorario());
+            System.out.println("Valor Total: " + transacao.getValorTotal());
+            System.out.println("--------------------------------------");
+        }
+    }
+
+    public double somarValoresTotaisTransacoes() {
+        double soma = 0.0;
+        for (Transacao transacao : transacoes) {
+            soma += transacao.getValorTotal();
+        }
+        return soma;
     }
 }
 

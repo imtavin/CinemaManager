@@ -11,6 +11,7 @@ public class Sessao {
     private boolean tipoDublado;
     private int sala;
     private List<Integer> assentosDisponiveis;
+    private double preco = 30.00;
 
     public Sessao(Filme filme, String horario, boolean tipoDublado, boolean tipo3D, int sala) {
         this.filme = filme;
@@ -23,6 +24,10 @@ public class Sessao {
         for (int i = 1; i <= 34; i++) {
             this.assentosDisponiveis.add(i);
         }
+
+        if(this.getTipo3D()){
+            this.preco = preco * 1.5;
+        }
     }
 
     public Sessao(int idSessao, Filme filme, String horario, boolean tipo3D, boolean tipoDublado, int sala, List<Integer> assentosDisponiveis) {
@@ -33,6 +38,10 @@ public class Sessao {
         this.tipoDublado = tipoDublado;
         this.sala = sala;
         this.assentosDisponiveis = assentosDisponiveis;
+
+        if(this.getTipo3D()){
+            this.preco = preco * 1.5;
+        }
     }
 
     public int getIdSessao() {
@@ -56,6 +65,14 @@ public class Sessao {
     }
 
     public int getSala() {return sala;}
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
 
     public boolean ocuparAssento(int assento) {
         if (assentosDisponiveis.contains(assento)) {
