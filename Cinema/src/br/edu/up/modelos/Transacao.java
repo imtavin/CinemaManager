@@ -7,10 +7,10 @@ public class Transacao {
     private int idTransacao;
     private List<Ingresso> ingressos;
     private Cliente cliente;
-    private LocalDateTime horario;
-    private double valorTotal;
+    private String horario;
+    private double valorTotal = 0.00;
 
-    public Transacao(List<Ingresso> ingressos, Cliente cliente, LocalDateTime horario) {
+    public Transacao(List<Ingresso> ingressos, Cliente cliente, String horario) {
         this.ingressos = ingressos;
         this.cliente = cliente;
         this.horario = horario;
@@ -20,10 +20,11 @@ public class Transacao {
 
         for (Ingresso ingresso : ingressos) {
             this.valorTotal = this.valorTotal + ingresso.getPreco();
+            System.out.println("Valor Total: " + this.valorTotal);
         }
     }
 
-    public Transacao(int idTransacao, List<Ingresso> ingressos, Cliente cliente, LocalDateTime horario, double valorTotal) {
+    public Transacao(int idTransacao, List<Ingresso> ingressos, Cliente cliente, String horario, double valorTotal) {
         this.idTransacao = idTransacao;
         this.ingressos = ingressos;
         this.cliente = cliente;
@@ -43,7 +44,7 @@ public class Transacao {
         return cliente;
     }
 
-    public LocalDateTime getHorario() {
+    public String getHorario() {
         return horario;
     }
 

@@ -3,6 +3,7 @@ package br.edu.up.modelos;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 // Definição da classe FileManager
@@ -384,11 +385,9 @@ public class FileManager {
     public Cliente buscarCliente(String cpf){
         for (Cliente cliente : clientes) {
             if (cliente.getCpf().equals(cpf)) {
-                System.out.println("Cliente encontrado");
                 return cliente;
             }
         }
-        System.out.println("Cliente não encontrado");
         return null;
     }
 
@@ -463,10 +462,10 @@ public class FileManager {
                 i += 3; // Avança para o próximo conjunto de valores
             }
 
-            String cpfCliente = dados[dados.length - 2].trim();
+            String cpfCliente = dados[dados.length - 3].trim();
             Cliente cliente = buscarCliente(cpfCliente);
 
-            LocalDateTime horario = LocalDateTime.parse(dados[dados.length - 3].trim());
+            String horario = dados[dados.length - 2].trim();
             double valorTotal = Double.parseDouble(dados[dados.length - 1].trim());
 
             if (idTransacao > LastId.getLastIdTransacao()) {
@@ -491,7 +490,7 @@ public class FileManager {
                 }
             }
             bw.write(transacao.getCliente().getCpf() + ",");
-            bw.write(transacao.getHorario().toString() + ","); // Adiciona o horário aqui
+            bw.write(transacao.getHorario() + ","); // Adiciona o horário aqui
             bw.write(transacao.getValorTotal() + "\n");
         }
         bw.close();
@@ -541,7 +540,12 @@ public class FileManager {
 
         for (Transacao transacao : transacoesOrdenadas) {
             System.out.println("ID da Transação: " + transacao.getIdTransacao());
-            System.out.println("Cliente: " + transacao.getCliente().getNome());
+            try {
+                System.out.println("Cliente: " + transacao.getCliente().getNome());
+            }
+            catch (Exception e) {
+                System.out.println("Cliente:" + null);
+            }
             System.out.println("Data da Transação: " + transacao.getHorario());
             System.out.println("Valor Total: " + transacao.getValorTotal());
             System.out.println("--------------------------------------");
@@ -567,6 +571,12 @@ public class FileManager {
             soma += transacao.getValorTotal();
         }
         return soma;
+    }
+
+    public static String obterHorarioAtual() {
+        LocalDateTime agora = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return agora.format(formatter);
     }
 }
 

@@ -214,11 +214,11 @@ public class Principal {
                             if (cliente == null) {
                                 System.out.println("Informe o seu nome:");
                                 String nome = scanner.nextLine();
-                                nome = scanner.nextLine();
                                 System.out.println("Informe a sua idade:");
                                 int idade = scanner.nextInt();
                                 cliente = new Cliente(cpf, nome, idade);
                                 manager.adicionarCliente(cliente);
+                                scanner.nextLine();
                             }
 
                             for (int i = 0; i < quantidade; i++) {
@@ -227,7 +227,11 @@ public class Principal {
                                 System.out.println("Filmes disponíveis:");
                                 manager.listarFilmes();
                                 System.out.println("Informe o título do filme:");
+                                if (i > 0){
+                                    scanner.nextLine();
+                                }
                                 String tituloFilme = scanner.nextLine();
+
                                 Filme filme = manager.buscarFilme(tituloFilme);
 
                                 System.out.println("Sessões disponíveis para o filme " + tituloFilme + ":");
@@ -236,11 +240,17 @@ public class Principal {
                                 int idSessao = scanner.nextInt();
                                 scanner.nextLine(); // Limpar o buffer do scanner
                                 Sessao sessao = manager.buscarSessao(idSessao);
-
-                                System.out.println("Assentos disponiveis:");
-                                sessao.mostrarAssentosDisponiveis();
-                                System.out.println("Escolha um assento:");
-                                int assento = scanner.nextInt();
+                                int assento;
+                                while (true){
+                                    System.out.println("Assentos disponiveis:");
+                                    sessao.mostrarAssentosDisponiveis();
+                                    System.out.println("Escolha um assento:");
+                                    assento = scanner.nextInt();
+                                    if (sessao.getAssentosDisponiveis().contains(assento)){
+                                        break;
+                                    }
+                                    System.out.println("Assento errado, informe novamente um assento.");
+                                }
 
                                 System.out.println("O ingresso será meia? (true/false) ");
                                 Boolean meia = scanner.nextBoolean();
@@ -254,7 +264,8 @@ public class Principal {
                                 }
                             }
 
-                            Transacao transacao = new Transacao(ingressos, cliente,LocalDateTime.now());
+                            String horario = manager.obterHorarioAtual();
+                            Transacao transacao = new Transacao(ingressos, cliente, horario);
 
                             System.out.println("Valor total em R$ " + transacao.getValorTotal());
 

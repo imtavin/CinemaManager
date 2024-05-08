@@ -10,6 +10,7 @@ public class Ingresso {
         this.sessao = sessao;
         this.assento = assento;
         this.meia = meia;
+        this.preco = sessao.getPreco();
 
         if(this.meia){
             this.preco = this.sessao.getPreco()/2;
