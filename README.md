@@ -31,12 +31,9 @@ Usage
 *   Upon running the application, you will be presented with a menu to perform various actions such as adding movies, scheduling sessions, and selling tickets.
 *   Follow the on-screen instructions to navigate through the menu and use the features of the application.
 
-Contributing
+Contribotors
 ------------
 
-Contributions are welcome! If you'd like to contribute to this project, please fork the repository and create a pull request with your changes.
+Gustavo Tavares Espenchitt
 
-License
--------
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+Pedro Henrique
