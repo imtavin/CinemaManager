@@ -201,11 +201,13 @@ public class Principal {
                     opIngresso = scanner.nextInt();
                     switch (opIngresso) {
                         case 1:
+                            //Informando a quantidade de ingressos, se cria uma lista para os ingressos.
                             System.out.println("Quantos ingressos deseja comprar?");
                             int quantidade = scanner.nextInt();
                             scanner.nextLine(); // Limpar o buffer do scanner
 
                             List<Ingresso> ingressos = new ArrayList<>();
+                            //Pesquisa um CPF informado no sistema para confirmar se é a primeira vez do cliente no cinema. Se é, o registra.
 
                             System.out.println("Informe o seu CPF:");
                             String cpf = scanner.nextLine();
@@ -220,6 +222,7 @@ public class Principal {
                                 cliente = new Cliente(cpf, nome, idade);
                                 manager.adicionarCliente(cliente);
                             }
+                            //Para a quantidade de ingressos requesitadas, faz o display dos filmes, sessões e assentos disponíveis, e se será meia entrada ou não.
 
                             for (int i = 0; i < quantidade; i++) {
                                 System.out.println("Ingresso " + (i + 1));
@@ -245,6 +248,8 @@ public class Principal {
                                 System.out.println("O ingresso será meia? (true/false) ");
                                 Boolean meia = scanner.nextBoolean();
 
+                                //Se as respostas forem válidas, registra um novo ingresso e tira o assento escolhido da lista.
+
                                 if (cliente != null && filme != null && sessao != null) {
                                     System.out.println("Ingresso vendido com sucesso para " + cliente.getNome());
                                     ingressos.add(new Ingresso(sessao, assento, meia));
@@ -253,6 +258,7 @@ public class Principal {
                                     System.out.println("Erro ao vender ingresso. Verifique os dados informados.");
                                 }
                             }
+                            //Cria um objeto transação com os dados de Ingresso, Cliente, e o horário da transação, salvando esta numa lista.
 
                             Transacao transacao = new Transacao(ingressos, cliente,LocalDateTime.now());
 
@@ -261,9 +267,11 @@ public class Principal {
                             manager.adicionarTransacao(transacao);
                             break;
                         case 2:
+                            //Lista o total arrecadado com as vendas.
                             System.out.println("O valor arrecado com ingressos é igual a R$" + manager.somarValoresTotaisTransacoes());
                             break;
                         case 3:
+                            //Submenu de Listagem de Transações
                             System.out.println("////////LISTAR TRANSAÇÕES//////// ");
                             Integer opListaIngresso;
                             System.out.println("1-Listar");
@@ -274,6 +282,7 @@ public class Principal {
                             opListaIngresso = scanner.nextInt();
 
                             switch (opListaIngresso){
+                                    //Lista de forma padrão ou ordenada via Data, ID ou Valores.
                                 case 1:
                                     System.out.println("Listando...");
                                     manager.listarTransacoes();
