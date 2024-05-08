@@ -207,9 +207,19 @@ public class Principal {
 
                             List<Ingresso> ingressos = new ArrayList<>();
 
-                            System.out.println("Informe o CPF do cliente:");
+                            System.out.println("Informe o seu CPF:");
                             String cpf = scanner.nextLine();
                             Cliente cliente = manager.buscarCliente(cpf);
+
+                            if (cliente == null) {
+                                System.out.println("Informe o seu nome:");
+                                String nome = scanner.nextLine();
+                                nome = scanner.nextLine();
+                                System.out.println("Informe a sua idade:");
+                                int idade = scanner.nextInt();
+                                cliente = new Cliente(cpf, nome, idade);
+                                manager.adicionarCliente(cliente);
+                            }
 
                             for (int i = 0; i < quantidade; i++) {
                                 System.out.println("Ingresso " + (i + 1));
@@ -228,10 +238,11 @@ public class Principal {
                                 Sessao sessao = manager.buscarSessao(idSessao);
 
                                 System.out.println("Assentos disponiveis:");
-                                sessao.getAssentosDisponiveis();
+                                sessao.mostrarAssentosDisponiveis();
+                                System.out.println("Escolha um assento:");
                                 int assento = scanner.nextInt();
 
-                                System.out.println("O ingresso será meia?");
+                                System.out.println("O ingresso será meia? (true/false) ");
                                 Boolean meia = scanner.nextBoolean();
 
                                 if (cliente != null && filme != null && sessao != null) {
@@ -248,6 +259,7 @@ public class Principal {
                             System.out.println("Valor total em R$ " + transacao.getValorTotal());
 
                             manager.adicionarTransacao(transacao);
+                            break;
                         case 2:
                             System.out.println("O valor arrecado com ingressos é igual a R$" + manager.somarValoresTotaisTransacoes());
                             break;

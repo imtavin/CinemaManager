@@ -86,5 +86,9 @@ public class Sessao {
     public List<Integer> getAssentosDisponiveis() {
         return assentosDisponiveis;
     }
+
+    public void mostrarAssentosDisponiveis(){
+        System.out.println(assentosDisponiveis);
+    }
 }
 

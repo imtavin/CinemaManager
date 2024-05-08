@@ -450,7 +450,7 @@ public class FileManager {
             int idTransacao = Integer.parseInt(dados[0].trim());
             List<Ingresso> ingressos = new ArrayList<>();
             int i = 1; // Índice para percorrer os dados de ingresso
-            while (i < dados.length - 2) {
+            while (i < dados.length - 3) {
                 int assento = Integer.parseInt(dados[i].trim());
                 boolean meia = Boolean.parseBoolean(dados[i + 1].trim());
                 int idSessao = Integer.parseInt(dados[i + 2].trim());
