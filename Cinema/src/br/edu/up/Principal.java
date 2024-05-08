@@ -1,3 +1,6 @@
+//Projeto de Gerenciamento de Cinema
+//Alunos: Pedro Henrique Costa Dias e Gustavo Espenchitt
+
 package br.edu.up;
 
 import br.edu.up.modelos.*;
@@ -10,6 +13,7 @@ import java.util.Scanner;
 
 public class Principal {
     public static void main(String[] args) throws IOException {
+        //Se cria os objetos do FileManager e do Scanner, também se inicializando a variável que controla o switch case.
         FileManager manager = new FileManager();
         Scanner scanner = new Scanner(System.in);
         Integer opcao = 1;
@@ -36,7 +40,7 @@ public class Principal {
                     opFilmes = scanner.nextInt();
 
                     switch (opFilmes) {
-                        //Adicionar Filme
+                        //Se obtem o título e genero do filme e usa do objeto Manager criado anteriormente para adicionar o filme à lista de filmes.
                         case 1:
                             System.out.println("Informe o título do filme:");
                             String titulo = scanner.nextLine(); // Consumir quebra de linha pendente
@@ -45,7 +49,7 @@ public class Principal {
                             String genero = scanner.next();
                             manager.adicionarFilme(new Filme(titulo, genero));
                             break;
-                        //Remover Filme
+                        //Se pesquisa o filme via um dado título, e se o mesmo for identificado na lista de filmes via o objeto manager, o remove da lista.
                         case 2:
                             System.out.println("Informe o título do filme a ser removido:");
                             String tituloRemover = scanner.nextLine();// Consumir quebra de linha pendente
@@ -57,7 +61,7 @@ public class Principal {
                                 System.out.println("Filme não encontrado.");
                             }
                             break;
-                        //Procurar Filme
+                        //O usuário informa um título e é informado se o mesmo se encontra na lista de filmes via o objeto Manager
                         case 3:
                             System.out.println("Informe o título do filme a ser procurado:");
                             String tituloProcurar = scanner.nextLine();// Consumir quebra de linha pendente
@@ -70,7 +74,7 @@ public class Principal {
                                 System.out.println("Filme não encontrado.");
                             }
                             break;
-                        //Listar Filme
+                        //Submenu de listagem de filmes, com Listagens padrão, por Título e por Gênero usando o objeto manager.
                         case 4:
                             System.out.println("////////LISTAR FILMES//////// ");
                             Integer opListaFilmes;
@@ -102,6 +106,7 @@ public class Principal {
                     }
                     break;
                 case 2:
+                    //Submenu de Sessões, com as opções para Adicionar, Remover, Pesquisar e Listar Sessões
                     System.out.println("//////////////SESSÕES//////////////");
                     Integer opSessao;
                     System.out.println("1-Adicionar Sessão");
@@ -112,6 +117,7 @@ public class Principal {
                     opSessao = scanner.nextInt();
                     switch (opSessao) {
                         case 1:
+                            //Pega um titulo e pesquisa na lista de filme. Se achar o filme, pede em sequência os componentes de uma sessão(Horário, 3D, Dublado e Sala) e marca a sessão.
                             System.out.println("Informe o nome do filme:");
                             String titulo = scanner.nextLine();// Consumir quebra de linha pendente
                             titulo = scanner.nextLine();
@@ -131,6 +137,7 @@ public class Principal {
                             }
                             break;
                         case 2:
+                            //A partir de um ID informado pelo usuário, se pesquisa a lista de sessões e deleta uma sessão se for encontrada uma sessão com o mesmo ID.
                             System.out.println("Informe o ID da sessão a ser removido:");
                             int IDSessaoRemover = scanner.nextInt();
                             Boolean sessaoRemover = manager.deletarSessao(IDSessaoRemover);
@@ -141,11 +148,13 @@ public class Principal {
                             }
                             break;
                         case 3:
+                            //É informado um ID pelo usuário e, se encontrado na lista, informa a sessão.
                             System.out.println("Pesquisar sessao, informe o ID da sessao:");
                             int IDSessaoPesquisar = scanner.nextInt();
                             Sessao sessaoPesquisar = manager.buscarSessao(IDSessaoPesquisar);
                             break;
                         case 4:
+                            //Submenu de listagem de sessões
                             System.out.println("////////LISTAR SESSÕES//////// ");
                             Integer opListaSessao;
                             System.out.println("1-Listar");
@@ -156,6 +165,7 @@ public class Principal {
                             opListaSessao = scanner.nextInt();
 
                             switch (opListaSessao){
+                                    //Imprime a lista de sessões marcada de forma padrão, ordenada via ID, Titulo do Filme ou Sala
                                 case 1:
                                     System.out.println("Listando...");
                                     manager.listarSessoes();
@@ -181,6 +191,7 @@ public class Principal {
                     }
                     break;
                 case 3:
+                    //Submenu de Vendas, com as opções de realizar a venda de um ingresso, Valores e listar todas as transações.
                     System.out.println("//////////////VENDAS//////////////");
                     Integer opIngresso;
                     System.out.println("1-Vender Ingresso");
@@ -274,6 +285,7 @@ public class Principal {
                     }
                     break;
                 case 4:
+                    //Submenu de Clientes, com as opções de Adicionar, Remover, Pesquisar e Listar Clientes
                     System.out.println("///////////////////CLIENTES////////////////");
                     Integer opClientes;
                     System.out.println("1-Adicionar Cliente");
@@ -283,7 +295,10 @@ public class Principal {
                     System.out.println("5-Voltar");
                     opClientes = scanner.nextInt();
                     switch (opClientes) {
+    
                         case 1:
+
+                            //Informando o nome, CPF e Idade, se cadastra o cliente na lista de clientes usando o objeto manager.
                             System.out.println("Informe o nome do cliente:");
                             String nomeCliente = scanner.nextLine();
                             nomeCliente = scanner.nextLine();
@@ -294,16 +309,19 @@ public class Principal {
                             manager.adicionarCliente(new Cliente(nomeCliente, cpfCliente, idadeCliente));
                             break;
                         case 2:
+                            //Usando um CPF, se pesquisa na lista de clientes por um correspondente e remove se encontrado.
                             System.out.println("Informe o CPF do cliente a ser removido:");
                             String cpfClienteRemover = scanner.next();
                             manager.removerCliente(cpfClienteRemover);
                             break;
                         case 3:
+                            //Usando um CPF, se faz uma pesquisa na lista de clientes por um cliente com o CPF informado.
                             System.out.println("Informe o CPF do cliente a ser pesquisado:");
                             String cpfClientePesquisar = scanner.next();
                             Cliente cliente = manager.buscarCliente(cpfClientePesquisar);
                             break;
                         case 4:
+                            //Submenu para listagem de clientes.
                             System.out.println("//////LISTAR CLIENTES//////");
                             Integer opListaClientes;
                             System.out.println("1-Listar");
@@ -314,6 +332,7 @@ public class Principal {
                             opListaClientes = scanner.nextInt();
 
                             switch (opListaClientes){
+                                    //Opções para Listagem dos Clientes, podendo ser de forma padrão, ordenado pelo Nome, CPF ou Idade
                                 case 1:
                                     System.out.println("Listando...");
                                     manager.listarClientes();
@@ -342,6 +361,7 @@ public class Principal {
                     break;
             }
         }
+        //Ao se encerrar o programa, o objeto manager pega as três listas(Sessões, Filmes e Clientes) e salva nos respectivos arquivos de texto.
         manager.salvarSessoes();
         manager.salvarFilmes();
         manager.salvarClientes();
