@@ -36,4 +36,4 @@ Contribotors
 
 Gustavo Tavares Espenchitt
 
-Pedro Henrique
+Pedro Henrique Costa Dias
