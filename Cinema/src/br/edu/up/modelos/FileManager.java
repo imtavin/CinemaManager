@@ -314,6 +314,19 @@ public class FileManager {
         }
     }
 
+    public void listarSessoesPorFilme(String tituloFilme) {
+        for (Sessao sessao : sessoes) {
+            if (sessao.getFilme().getTitulo().equalsIgnoreCase(tituloFilme)) {
+                System.out.println("ID: " + sessao.getIdSessao());
+                System.out.println("Horário: " + sessao.getHorario());
+                System.out.println("Sessao " + (sessao.getTipo3D() ? "3D" : "2D"));
+                System.out.println("Sessao " + (sessao.getTipoDublado() ? "Dublada" : "Legendada"));
+                System.out.println("Sala: " + sessao.getSala());
+                System.out.println("--------------------------------------");
+            }
+        }
+    }
+
 
     private void carregarClientes() throws IOException {
         if (!arqClientes.exists()) {

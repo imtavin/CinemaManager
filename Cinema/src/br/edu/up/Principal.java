@@ -1,11 +1,11 @@
 package br.edu.up;
 
-import br.edu.up.modelos.Cliente;
-import br.edu.up.modelos.FileManager;
-import br.edu.up.modelos.Filme;
-import br.edu.up.modelos.Sessao;
+import br.edu.up.modelos.*;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -113,7 +113,8 @@ public class Principal {
                     switch (opSessao) {
                         case 1:
                             System.out.println("Informe o nome do filme:");
-                            String titulo = scanner.next();
+                            String titulo = scanner.nextLine();// Consumir quebra de linha pendente
+                            titulo = scanner.nextLine();
                             Filme filme = manager.buscarFilme(titulo);
                             if (filme != null) {
                                 System.out.println("Informe o horário da sessão (HH:MM):");
@@ -183,16 +184,61 @@ public class Principal {
                     System.out.println("//////////////VENDAS//////////////");
                     Integer opIngresso;
                     System.out.println("1-Vender Ingresso");
-                    System.out.println("2-Valores");
+                    System.out.println("2-Valor Arrecado");
                     System.out.println("3-Listar Transações");
                     System.out.println("4-Voltar");
                     opIngresso = scanner.nextInt();
                     switch (opIngresso) {
                         case 1:
-                            System.out.println("Informe o ID da sessão:");
-                            break;
+                            System.out.println("Quantos ingressos deseja comprar?");
+                            int quantidade = scanner.nextInt();
+                            scanner.nextLine(); // Limpar o buffer do scanner
+
+                            List<Ingresso> ingressos = new ArrayList<>();
+
+                            System.out.println("Informe o CPF do cliente:");
+                            String cpf = scanner.nextLine();
+                            Cliente cliente = manager.buscarCliente(cpf);
+
+                            for (int i = 0; i < quantidade; i++) {
+                                System.out.println("Ingresso " + (i + 1));
+
+                                System.out.println("Filmes disponíveis:");
+                                manager.listarFilmes();
+                                System.out.println("Informe o título do filme:");
+                                String tituloFilme = scanner.nextLine();
+                                Filme filme = manager.buscarFilme(tituloFilme);
+
+                                System.out.println("Sessões disponíveis para o filme " + tituloFilme + ":");
+                                manager.listarSessoesPorFilme(tituloFilme);
+                                System.out.println("Informe o ID da sessão:");
+                                int idSessao = scanner.nextInt();
+                                scanner.nextLine(); // Limpar o buffer do scanner
+                                Sessao sessao = manager.buscarSessao(idSessao);
+
+                                System.out.println("Assentos disponiveis:");
+                                sessao.getAssentosDisponiveis();
+                                int assento = scanner.nextInt();
+
+                                System.out.println("O ingresso será meia?");
+                                Boolean meia = scanner.nextBoolean();
+
+                                if (cliente != null && filme != null && sessao != null) {
+                                    System.out.println("Ingresso vendido com sucesso para " + cliente.getNome());
+                                    ingressos.add(new Ingresso(sessao, assento, meia));
+                                    sessao.ocuparAssento(assento);
+                                } else {
+                                    System.out.println("Erro ao vender ingresso. Verifique os dados informados.");
+                                }
+                            }
+
+                            Transacao transacao = new Transacao(ingressos, cliente,LocalDateTime.now());
+
+                            System.out.println("Valor total em R$ " + transacao.getValorTotal());
+
+                            manager.adicionarTransacao(transacao);
                         case 2:
-                            System.out.println("Valores:");
+                            System.out.println("O valor arrecado com ingressos é igual a R$" + manager.somarValoresTotaisTransacoes());
                             break;
                         case 3:
                             System.out.println("////////LISTAR TRANSAÇÕES//////// ");
@@ -200,19 +246,26 @@ public class Principal {
                             System.out.println("1-Listar");
                             System.out.println("2-Listar por Data");
                             System.out.println("3-Listar por ID");
-                            System.out.println("4-Voltar ao Inicio");
+                            System.out.println("4-Listar por Valores");
+                            System.out.println("5-Voltar ao Inicio");
                             opListaIngresso = scanner.nextInt();
 
                             switch (opListaIngresso){
                                 case 1:
                                     System.out.println("Listando...");
+                                    manager.listarTransacoes();
                                     break;
                                 case 2:
                                     System.out.println("Listando por data...");
+                                    manager.listarTransacoesOrdenadasPorData();
                                     break;
                                 case 3:
                                     System.out.println("Listando por ID...");
+                                    manager.listarTransacoesOrdenadasPorIdTransacao();
                                     break;
+                                case 4:
+                                    System.out.println("Listando por valores...");
+                                    manager.listarTransacoesOrdenadasPorValorTotal();
                                 default:
                                     break;
                             }
@@ -292,5 +345,6 @@ public class Principal {
         manager.salvarSessoes();
         manager.salvarFilmes();
         manager.salvarClientes();
+        manager.salvarTransacoes();
     }
 }
