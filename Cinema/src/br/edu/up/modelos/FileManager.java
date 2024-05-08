@@ -498,7 +498,6 @@ public class FileManager {
             transacoes.add(transacao);
         }
         br.close();
-        System.out.println("Transações: " + transacoes.size());
     }
 
     //Salva os conteudos da lista de transações no arquivo txt listaTransacoes
